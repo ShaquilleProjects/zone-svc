@@ -1,0 +1,26 @@
+{
+  "name": "svc-template",
+  "version": "1.0.0",
+  "description": "A template to build web services",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaqshaw/svc-template.git"
+  },
+  "author": "Shaquille Shaw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shaqshaw/svc-template/issues"
+  },
+  "homepage": "https://github.com/shaqshaw/svc-template#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
