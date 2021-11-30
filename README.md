@@ -4,7 +4,7 @@ This boilerplate is used to create services.
 
 #### [Getting Started](docs/GETTING-STARTED.md)
 
-#### [Adding Endpoints](docs/ENDPOINTS.md)
+#### [Adding Endpoints & MiddleWares](docs/ENDPOINTS.md)
 
 #### [Adding Database](docs/DATABASE.md)
 
