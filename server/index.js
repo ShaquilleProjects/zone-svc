@@ -14,6 +14,8 @@ app.get(`/docs-page`, async(req, res) => {
     res.sendFile(path.join(process.cwd()+'/public/docs-page.html'));
 });
 
+app.use(express.static("public"));
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, function () {
     console.log('Express app listening at PORT %s', PORT)
