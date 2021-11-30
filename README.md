@@ -6,6 +6,8 @@ This boilerplate is used to create services.
 
 #### [Adding Endpoints & MiddleWares](docs/ENDPOINTS.md)
 
+#### [Updating Documentation Page](docs/DOCUMENTATION.md)
+
 #### [Adding Database](docs/DATABASE.md)
 
 #### [Adding WebScrapers](docs/WEBSCRAPERS.md)
