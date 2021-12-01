@@ -14,6 +14,9 @@ app.get(`/docs-page`, async(req, res) => {
     res.sendFile(path.join(process.cwd()+'/docs/docs-page.html'));
 });
 
+// importing a list of routes
+require('./routes/routesSampleGroup.js')(app);
+
 app.use(express.static("docs"));
 
 const PORT = process.env.PORT || 5000;
