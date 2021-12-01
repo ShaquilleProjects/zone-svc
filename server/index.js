@@ -6,15 +6,15 @@ app = express();
 
 // home page
 app.get(`/`, async(req, res) => {
-    res.sendFile(path.join(process.cwd()+'/public/index.html'));
+    res.sendFile(path.join(process.cwd()+'/docs/index.html'));
 });
 
 // docs page
 app.get(`/docs-page`, async(req, res) => {
-    res.sendFile(path.join(process.cwd()+'/public/docs-page.html'));
+    res.sendFile(path.join(process.cwd()+'/docs/docs-page.html'));
 });
 
-app.use(express.static("public"));
+app.use(express.static("docs"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, function () {
