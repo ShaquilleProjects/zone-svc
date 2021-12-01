@@ -10,7 +10,7 @@ module.exports= (app) =>{
         const mongoose = require('mongoose');
         require('../../models/mymodel.js');
         mongoose.connect(keys.MONGO_URI_MARKUP);
-        const MyModel = mongoose.model('currency');
+        const MyModel = mongoose.model('mymodel');
 
         //fetch from mongodb and disconnect
         MyModel.find({pair: currency.pair}, function (err, curr) { //mongodb query
