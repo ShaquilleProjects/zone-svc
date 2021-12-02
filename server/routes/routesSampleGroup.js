@@ -1,14 +1,14 @@
 
 module.exports= (app) =>{
 
-    const middlewareSample = require('../../middlewares/middlewareSample');
-    const keys = require('../../config/keys.js');
+    const middlewareSample = require('../middlewares/middlewareSample');
+    const keys = require('../config/keys.js');
 
-    app.get(`/:id/example`,middlewareSample(req.params.id), async(req, res) => {
+    app.get(`/:id/example`,middlewareSample(), async(req, res) => {
 
         //connect to mongodb
         const mongoose = require('mongoose');
-        require('../../models/mymodel.js');
+        require('../models/mymodel.js');
         mongoose.connect(keys.MONGO_URI_MARKUP);
         const MyModel = mongoose.model('mymodel');
 
@@ -20,9 +20,9 @@ module.exports= (app) =>{
 
     });
 
-    app.get(`/blah`,middlewareSample(req.params.id), async(req, res) => {
+    app.get(`/blah`,middlewareSample(), async(req, res) => {
 
-        res.send();
+        res.send("hello");
 
     });
 }

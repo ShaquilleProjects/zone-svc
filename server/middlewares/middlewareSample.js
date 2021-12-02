@@ -1,7 +1,6 @@
-module.exports = function(input) {
+module.exports = function() {
     return function(req, res, next) {
-
-        if( false ){
+        if( req.params.id ){
             return res.status(403).send({ error: 'Error'});
         }
         next();
