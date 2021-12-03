@@ -21,7 +21,11 @@
   },
   "homepage": "https://github.com/shaqshaw/svc-template#readme",
   "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
     "express": "^4.17.1",
-    "mongoose": "^6.0.14"
+    "mongoose": "^6.0.14",
+    "pretty": "^2.0.0",
+    "puppeteer": "^12.0.1"
   }
 }
