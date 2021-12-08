@@ -1,7 +1,6 @@
 // WEB SCRAPING EXAMPLE
 const axios = require("axios");
 const cheerio = require("cheerio");
-const pretty = require("pretty");
 const mongoose = require('mongoose');
 
 const keys = require('../../config/keys.js');
