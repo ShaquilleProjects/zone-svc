@@ -15,7 +15,7 @@ app.get(`/docs-page`, async(req, res) => {
 });
 
 // importing a list of routes
-require('./routes/routesSampleGroup.js')(app);
+require('./routes/routes.js')(app);
 
 app.use(express.static("docs"));
 
