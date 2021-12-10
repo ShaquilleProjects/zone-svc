@@ -10,11 +10,11 @@ module.exports= (app) =>{
         pair: 'AUDCAD'
     }
 
-    app.get(`/:id/monthly`,requireCurrencySupport(req.params.id), async(req, res) => {
+    app.get(`/:id/monthly`,requireCurrencySupport(), async(req, res) => {
 
         //connect to mongodb
         const mongoose = require('mongoose');
-        require('../../models/currency.js');
+        require('../models/currency.js');
         mongoose.connect(keys.MONGO_URI_MARKUP);
         const Currency = mongoose.model('currency');
         
@@ -26,11 +26,11 @@ module.exports= (app) =>{
 
     });
 
-    app.get(`/:id/weekly`,requireCurrencySupport(req.params.id), async(req, res) => {
+    app.get(`/:id/weekly`,requireCurrencySupport(), async(req, res) => {
 
         //connect to mongodb
         const mongoose = require('mongoose');
-        require('../../models/currency.js');
+        require('../models/currency.js');
         mongoose.connect(keys.MONGO_URI_MARKUP);
         const Currency = mongoose.model('currency');
         
@@ -42,11 +42,11 @@ module.exports= (app) =>{
 
     });
 
-    app.get(`/:id/daily`,requireCurrencySupport(req.params.id), async(req, res) => {
+    app.get(`/:id/daily`,requireCurrencySupport(), async(req, res) => {
 
         //connect to mongodb
         const mongoose = require('mongoose');
-        require('../../models/currency.js');
+        require('../models/currency.js');
         mongoose.connect(keys.MONGO_URI_MARKUP);
         const Currency = mongoose.model('currency');
         
@@ -58,11 +58,11 @@ module.exports= (app) =>{
 
     });
 
-    app.get(`/:id/h1`,requireCurrencySupport(req.params.id), async(req, res) => {
+    app.get(`/:id/h1`,requireCurrencySupport(), async(req, res) => {
 
         //connect to mongodb
         const mongoose = require('mongoose');
-        require('../../models/currency.js');
+        require('../models/currency.js');
         mongoose.connect(keys.MONGO_URI_MARKUP);
         const Currency = mongoose.model('currency');
         
