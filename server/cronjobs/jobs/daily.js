@@ -1,73 +1,101 @@
-// WEB SCRAPING EXAMPLE
-const axios = require("axios");
-const cheerio = require("cheerio");
 const mongoose = require('mongoose');
-
 const keys = require('../../config/keys.js');
-require('../../models/mymodel.js');
+const supportedPairs = require('../../config/supportedPairs');
+const { getSupp_Resi, findClosestRecentLevels } = require('../../core/index.js');
 
-// daily  job
-async function dailyJob(){
-    const url = "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3";
-    try {
-        // Fetch HTML of the page we want to scrape
-        const { data } = await axios.get(url);
+const pairs = supportedPairs.supportedPairs;
+const pair_keys = Object.keys(supportedPairs.supportedPairs);
 
-        // Load HTML we fetched in the previous line
-        const $ = cheerio.load(data);
+let currency_list =[];
+let all_supp_res=[];
 
-        // Select all the list items in plainlist class
-        const listItems = $(".plainlist ul li");
+require('../../models/currency.js');
 
-        // Stores data for all countries
-        const countries = [];
+//daily  job
+async function dailyZones(){
 
-        // Use .each method to loop through the li we selected
-        listItems.each((idx, el) => {
-          // Object holding data for each country/jurisdiction
-          const country = { name: "", iso3: "" };
-          // Select the text content of a and span elements
-          // Store the textcontent in the above object
-          country.name = $(el).children("a").text();
-          country.iso3 = $(el).children("span").text();
-          // Populate countries array with country data
-          countries.push(country);
-        });
+    await mongoose.connect(keys.MONGO_URI_MARKUP, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useFindAndModify: false
+    })
+    .then(() => {
+        console.log("DB Connected!"); 
+        console.log("Running Phillip Daily Analysis!"); 
+        console.log("Fetching Currency Data ...");
+    })
+    .catch(err => {
+        console.log(`DB Connection Error: ${err.message}`);
+    });
 
-        // Logs countries array to the console
-        console.dir(countries);
-
-        // Write countries array in database
-
-      } catch (err) {
-        console.error(err);
-      }
-};
+    try{
+        const time_frame = 'daily';
+        const date_range = null;
+        const Currency = mongoose.model('currency');
 
 
+        // finds all supported pairs
+        for (pair of pair_keys){     
+            if (pairs[pair]=== true){   
+                
+                let currency = {
+                    pair: pair,
+                    from: pair.slice(0,3),
+                    to: pair.slice(3)
+                };
 
-// CODE TO LOAD JS from a react website
+                currency_list.push(currency);
+            }
+        }
 
-// var options = {
-//     url: user.instagram_url,
-//     headers: {
-//       'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4'
-//     }
-//   };
+        //get support resistance for all pairs
+        const all_levels = await Promise.all(
+            currency_list.map( async function (curr){ 
 
-//   request(options, function(error, response, html) {
-//     if (!error) {
+                let levels = await getSupp_Resi(time_frame, date_range, curr);
+                obj = {
+                    pair: curr.pair,
+                    levels: levels,
+                    last_candle: levels.last_candle,
+                    all_candles: levels.all_candles
+                }
+                all_supp_res.push(obj);
+            }
+        ))
 
-//       console.log('Scraper running on Instagram user page.');
+        // get closest levels and update db
+        .then( async function(){
+            console.log("Currency List: ",all_supp_res.length );
 
-//       // Use Cheerio to load the page.
-//       var $ = cheerio.load(html);
+            const currencies = await Promise.all(
+                all_supp_res.map( async function (supp_res){ 
+                    let sr_levels = findClosestRecentLevels(supp_res.last_candle, supp_res.all_candles, supp_res.levels);
+                    try{
+                        // replace data in mongodb
+                        await Currency.findOneAndUpdate({pair: supp_res.pair}, {daily: sr_levels} );
+                        
+                    }catch(err){
+                        console.log(err);
+                    }
+                })
+            )
 
-//       // Code to parse the DOM here
+            // close db
+            .then(async function() {
+                await mongoose.connection.close(function(){
+                    console.log("Currencies Updated");
+                    console.log("DB Disconnected.");
+                })
+            });
 
-//     }
-// }
+        });        
+        
+    }catch(error){
+        throw(error);
+    }
+    
+}
 
 module.exports = {
-    dailyJob
+    dailyZones
 }

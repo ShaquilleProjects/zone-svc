@@ -12,8 +12,8 @@ let all_supp_res=[];
 require('../../models/currency.js');
 
 
-//weekly  job
-async function weeklyZones(){
+//monthly  job
+async function monthlyZones(){
 
     await mongoose.connect(keys.MONGO_URI_MARKUP, {
         useUnifiedTopology: true,
@@ -22,15 +22,16 @@ async function weeklyZones(){
     })
     .then(() => {
         console.log("DB Connected!"); 
-        console.log("Running Phillip Weekly Analysis!"); 
+        console.log("Running Phillip Monthly Analysis!"); 
         console.log("Fetching Currency Data ...");
     })
     .catch(err => {
         console.log(`DB Connection Error: ${err.message}`);
     });
 
+    
     try{
-        const time_frame = 'weekly';
+        const time_frame = 'monthly';
         const date_range = null;
         const Currency = mongoose.model('currency');
 
@@ -66,14 +67,14 @@ async function weeklyZones(){
 
         // get closest levels and update db
         .then( async function(){
-            console.log("Currency List: ",all_supp_res.length);
+            console.log("Currency List: ",all_supp_res.length );
 
             const currencies = await Promise.all(
                 all_supp_res.map( async function (supp_res){ 
                     let sr_levels = findClosestRecentLevels(supp_res.last_candle, supp_res.all_candles, supp_res.levels);
                     try{
                         // replace data in mongodb
-                        await Currency.findOneAndUpdate({pair: supp_res.pair}, {weekly: sr_levels} );
+                        await Currency.findOneAndUpdate({pair: supp_res.pair}, {monthly: sr_levels} );
                         
                     }catch(err){
                         console.log(err);
@@ -83,15 +84,14 @@ async function weeklyZones(){
 
             // close db
             .then(async function() {
-                
+
                 await mongoose.connection.close(function(){
                     console.log("Currencies Updated");
                     console.log("DB Disconnected.");
                 })
             });
 
-        });
-        
+        });        
     }catch(error){
         throw(error);
     }
@@ -99,5 +99,5 @@ async function weeklyZones(){
 }
 
 module.exports = {
-    weeklyZones
+    monthlyZones
 }
