@@ -1,6 +1,9 @@
 module.exports = {
-    MONGO_URI_EXAMPLE: process.env.MONGO_URI_EXAMPLE,
-    MONGO_URI_EXAMPLE2: process.env.MONGO_URI_EXAMPLE2,
+    MONGO_URI_MARKUP: process.env.MONGO_URI_MARKUP,
+    MONGO_URI_ANALYSIS: process.env.MONGO_URI_ANALYSIS,
+    MONGO_URI_TRADES: process.env.MONGO_URI_TRADES,
+    VANTAGE_API_KEY: process.env.VANTAGE_API_KEY,
+    IEX_API_TOKEN: process.env.IEX_API_TOKEN,
+    TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
+    TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN
 };
-
-// store api keys here
