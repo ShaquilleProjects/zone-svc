@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const keys = require('../../config/keys.js');
 const supportedPairs = require('../../config/supportedPairs');
-const { getSupp_Resi, findClosestRecentLevels } = require('../../core/index.js');
+const { getSupp_Resi, findClosestRecentLevels } = require('../core.js');
 
 const pairs = supportedPairs.supportedPairs;
 const pair_keys = Object.keys(supportedPairs.supportedPairs);
