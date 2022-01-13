@@ -17,7 +17,6 @@ async function hourlyZones(){
     await mongoose.connect(keys.MONGO_URI_MARKUP, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useFindAndModify: false
     })
     .then(() => {
         console.log("DB Connected!");

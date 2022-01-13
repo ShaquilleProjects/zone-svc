@@ -1,13 +1,13 @@
-const { hourlyZones } = require('./PhillipMarkUps/hourly.js');
-const { dailyZones } = require('./PhillipMarkUps/daily.js');
-const { weeklyZones } = require('./PhillipMarkUps/weekly.js');
-const { monthlyZones } = require('./PhillipMarkUps/monthly.js');
+const { hourlyZones } = require('./jobs/hourly.js');
+const { dailyZones } = require('./jobs/daily.js');
+const { weeklyZones } = require('./jobs/weekly.js');
+const { monthlyZones } = require('./jobs/monthly.js');
 
 const { 
     getDayOfWeek,
     getTimeOfDay,
     getDayOfMonth,
-} = require('../helperFunctions.js');
+} = require('./helperFunctions.js');
 
 
 async function main(){
