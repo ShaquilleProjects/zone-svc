@@ -4,12 +4,6 @@ module.exports= (app) =>{
     const requireCurrencySupport = require('../middlewares/requireCurrencySupport');
     const keys = require('../config/keys.js');
 
-    const currency = {
-        from: 'AUD',
-        to: 'CAD',
-        pair: 'AUDCAD'
-    }
-
     app.get(`/:id/monthly`,requireCurrencySupport(), async(req, res) => {
 
         //connect to mongodb
@@ -19,7 +13,7 @@ module.exports= (app) =>{
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
-        Currency.find({pair: currency.pair}, function (err, curr) {
+        Currency.find({pair: req.params.id}, function (err, curr) {
             res.send(curr[0].monthly);
             mongoose.disconnect();
         });
@@ -35,7 +29,7 @@ module.exports= (app) =>{
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
-        Currency.find({pair: currency.pair}, function (err, curr) {
+        Currency.find({pair: req.params.id}, function (err, curr) {
             res.send(curr[0].monthly);
             mongoose.disconnect();
         });
@@ -51,7 +45,7 @@ module.exports= (app) =>{
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
-        Currency.find({pair: currency.pair}, function (err, curr) {
+        Currency.find({pair: req.params.id}, function (err, curr) {
             res.send(curr[0].monthly);
             mongoose.disconnect();
         });
@@ -67,7 +61,7 @@ module.exports= (app) =>{
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
-        Currency.find({pair: currency.pair}, function (err, curr) {
+        Currency.find({pair: req.params.id}, function (err, curr) {
             res.send(curr[0].monthly);
             mongoose.disconnect();
         });
