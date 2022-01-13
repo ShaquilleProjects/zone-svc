@@ -9,7 +9,7 @@ module.exports= (app) =>{
         //connect to mongodb
         const mongoose = require('mongoose');
         require('../models/currency.js');
-        mongoose.connect(keys.MONGO_URI_MARKUP);
+        await mongoose.connect(keys.MONGO_URI_MARKUP);
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
@@ -25,12 +25,12 @@ module.exports= (app) =>{
         //connect to mongodb
         const mongoose = require('mongoose');
         require('../models/currency.js');
-        mongoose.connect(keys.MONGO_URI_MARKUP);
+        await mongoose.connect(keys.MONGO_URI_MARKUP);
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
         Currency.find({pair: req.params.id.toUpperCase()}, function (err, curr) {
-            res.send(curr[0].monthly);
+            res.send(curr[0].weekly);
             mongoose.disconnect();
         });
 
@@ -41,12 +41,12 @@ module.exports= (app) =>{
         //connect to mongodb
         const mongoose = require('mongoose');
         require('../models/currency.js');
-        mongoose.connect(keys.MONGO_URI_MARKUP);
+        await mongoose.connect(keys.MONGO_URI_MARKUP);
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
         Currency.find({pair: req.params.id.toUpperCase()}, function (err, curr) {
-            res.send(curr[0].monthly);
+            res.send(curr[0].daily);
             mongoose.disconnect();
         });
 
@@ -57,12 +57,12 @@ module.exports= (app) =>{
         //connect to mongodb
         const mongoose = require('mongoose');
         require('../models/currency.js');
-        mongoose.connect(keys.MONGO_URI_MARKUP);
+        await mongoose.connect(keys.MONGO_URI_MARKUP);
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
         Currency.find({pair: req.params.id.toUpperCase()}, function (err, curr) {
-            res.send(curr[0].monthly);
+            res.send(curr[0].h1);
             mongoose.disconnect();
         });
 
