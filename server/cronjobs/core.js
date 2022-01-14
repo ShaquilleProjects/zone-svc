@@ -7,10 +7,12 @@ const baseurl = "https://www.alphavantage.co";
 async function getSupp_Resi(time_series, date_range, currency){
 
     const { fxFunction, timeframe, interval } = queryConfig[time_series.toUpperCase()];
-    const { from, to, pair } = currency;
+    const { from, to } = currency;
     let points=[];
+
     let trueResistance = [];
     let trueSupport = [];
+
  
     let fetch = await axios.get(`${baseurl}/query?function=${fxFunction}&from_symbol=${from}&to_symbol=${to}&outputsize=full&interval=${interval}&apikey=${keys.VANTAGE_API_KEY}`);
     
@@ -47,15 +49,15 @@ async function getSupp_Resi(time_series, date_range, currency){
     //loop through candles and find support and resistance zones
     let first = points[0];
     let second = points[1];
-    //had to remove current forming candle from evaluation thus  "points.length-1"
+    // had to remove current forming candle from evaluation thus  "points.length-1"
     for(let i = 2; i<points.length-1; i++){
         if (    (first.type==='green')  &&   (second.type==='red')   &&  (points[i].type==='red')   ){
             let resistance = findResistance(first, second, points[i]) ; 
-            addResistance(resistance);
+            trueResistance = addResistance(resistance, trueResistance);
         }
         if (    (first.type==='red')  &&   (second.type==='green')   &&  (points[i].type==='green')   ){
             let support = findSupport(first, second, points[i]) ; 
-            addSupport(support);
+            trueSupport = addSupport(support, trueSupport);
         }
         first = second;
         second = points[i]; 
@@ -93,7 +95,7 @@ function findSupport(first, second, third){
     return zone;
 }
 
-function addSupport(support){
+function addSupport(support, trueSupport){
     //checks for overlap, and optimize them if so
    let overlap = false;
    let overlap_key=null;
@@ -124,9 +126,10 @@ function addSupport(support){
         }
         trueSupport.push(newSupport);
     }
+    return trueSupport;
 }
 
-function addResistance(resistance){
+function addResistance(resistance, trueResistance){
     //checks for overlap, and optimize them if so
    let overlap = false;
    let overlap_key=null;
@@ -157,6 +160,7 @@ function addResistance(resistance){
         }
         trueResistance.push(newResistance);
     }
+    return trueResistance;
 }
 
 function sortByDate(a, b) {
@@ -203,6 +207,8 @@ function res_sortByPrice(a, b) {
 
 function findClosestRecentLevels(last_candle, all_candles, supp_res){ //the following finds the closest, and closest most recent support [therefore following the U/teacup theorem and ignores retest]
     
+    /******************************************** SUPPORT ********************************************/
+
     //find all support that would deem the last candle close "respecting it"
     let respected_supp = supp_res["support"].filter(support => (last_candle["open"] >= support.low ) || (last_candle["close"] >= support.low));
     
@@ -291,6 +297,8 @@ function findClosestRecentLevels(last_candle, all_candles, supp_res){ //the foll
         start: sorted_support[0].recent_start,
         end: sorted_support[0].recent_end
     };
+
+    /******************************************** RESISTANCE ********************************************/
 
     //find all resistance that would deem the last candle close "respecting it"
     let respected_res = supp_res["resistance"].filter(resistance => (last_candle["open"] <= resistance.high ) || (last_candle["close"] <= resistance.low));
