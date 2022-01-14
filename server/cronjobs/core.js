@@ -4,14 +4,13 @@ const queryConfig = require('../config/queryConfig.js');
 
 const baseurl = "https://www.alphavantage.co";
 
-let trueResistance = [];
-let trueSupport = [];
-
 async function getSupp_Resi(time_series, date_range, currency){
 
     const { fxFunction, timeframe, interval } = queryConfig[time_series.toUpperCase()];
     const { from, to, pair } = currency;
     let points=[];
+    let trueResistance = [];
+    let trueSupport = [];
  
     let fetch = await axios.get(`${baseurl}/query?function=${fxFunction}&from_symbol=${from}&to_symbol=${to}&outputsize=full&interval=${interval}&apikey=${keys.VANTAGE_API_KEY}`);
     
@@ -72,10 +71,6 @@ async function getSupp_Resi(time_series, date_range, currency){
         last_candle: points[points.length-2],
         all_candles: points
     }
-
-    //reinitialize so when called again for a different time frame, values will be null
-    trueSupport = [];
-    trueResistance = [];
 
     return (zones);
 };
