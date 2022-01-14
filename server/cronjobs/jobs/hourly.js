@@ -6,13 +6,13 @@ const { getSupp_Resi, findClosestRecentLevels } = require('../core.js');
 const pairs = supportedPairs.supportedPairs;
 const pair_keys = Object.keys(supportedPairs.supportedPairs);
 
-let currency_list =[];
-let all_supp_res=[];
-
 require('../../models/currency.js');
 
 //hourly  job
 async function hourlyZones(){
+
+    let currency_list =[];
+    let all_supp_res=[];
 
     await mongoose.connect(keys.MONGO_URI_MARKUP, {
         useUnifiedTopology: true,
