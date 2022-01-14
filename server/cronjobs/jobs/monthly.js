@@ -21,7 +21,7 @@ async function monthlyZones(){
     })
     .then(() => {
         console.log("DB Connected!"); 
-        console.log("Running Phillip Monthly Analysis!"); 
+        console.log("Running Monthly Analysis!"); 
         console.log("Fetching Currency Data ...");
     })
     .catch(err => {

@@ -20,7 +20,7 @@ async function hourlyZones(){
     })
     .then(() => {
         console.log("DB Connected!");
-        console.log("Running Phillip Hourly Analysis!");  
+        console.log("Running Hourly Analysis!");  
         console.log("Fetching Currency Data ...");
     })
     .catch(err => {

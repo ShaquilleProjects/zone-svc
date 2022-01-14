@@ -14,14 +14,14 @@ async function weeklyZones(){
 
     let currency_list =[];
     let all_supp_res=[];
-    
+
     await mongoose.connect(keys.MONGO_URI_MARKUP, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     })
     .then(() => {
         console.log("DB Connected!"); 
-        console.log("Running Phillip Weekly Analysis!"); 
+        console.log("Running Weekly Analysis!"); 
         console.log("Fetching Currency Data ...");
     })
     .catch(err => {

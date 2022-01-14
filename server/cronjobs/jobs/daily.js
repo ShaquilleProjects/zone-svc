@@ -19,7 +19,7 @@ async function dailyZones(){
     })
     .then(() => {
         console.log("DB Connected!"); 
-        console.log("Running Phillip Daily Analysis!"); 
+        console.log("Running Daily Analysis!"); 
         console.log("Fetching Currency Data ...");
     })
     .catch(err => {
