@@ -13,7 +13,7 @@ module.exports= (app) =>{
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
-        Currency.find({pair: req.params.id.toUpperCase()}, function (err, curr) {
+        Currency.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
             res.send(curr[0].monthly);
             mongoose.disconnect();
         });
@@ -29,7 +29,7 @@ module.exports= (app) =>{
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
-        Currency.find({pair: req.params.id.toUpperCase()}, function (err, curr) {
+        Currency.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
             res.send(curr[0].weekly);
             mongoose.disconnect();
         });
@@ -45,7 +45,7 @@ module.exports= (app) =>{
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
-        Currency.find({pair: req.params.id.toUpperCase()}, function (err, curr) {
+        Currency.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
             res.send(curr[0].daily);
             mongoose.disconnect();
         });
@@ -61,7 +61,7 @@ module.exports= (app) =>{
         const Currency = mongoose.model('currency');
         
         //fetch from mongodb and disconnect
-        Currency.find({pair: req.params.id.toUpperCase()}, function (err, curr) {
+        Currency.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
             res.send(curr[0].h1);
             mongoose.disconnect();
         });
