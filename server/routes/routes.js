@@ -3,9 +3,10 @@ module.exports= (app) =>{
 
     const currencySupported = require('../middlewares/currencySupported');
     const timeFrameSupported = require('../middlewares/timeFrameSupported');
+    const apiKeySupported = require('../middlewares/apiKeySupported');
     const keys = require('../config/keys.js');
 
-    app.get(`/:currency/:timeframe`,currencySupported(), timeFrameSupported(), async(req, res) => {
+    app.get(`/:currency/:timeframe?:apikey`,currencySupported(), timeFrameSupported(), apiKeySupported(), async(req, res) => {
 
         //connect to mongodb
         const mongoose = require('mongoose');
