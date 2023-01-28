@@ -10,13 +10,13 @@ module.exports= (app) =>{
 
         //connect to mongodb
         const mongoose = require('mongoose');
-        require('../models/currency.js');
+        require('../models/zone.js');
         await mongoose.connect(keys.MONGO_URI_MARKUP);
-        const Currency = mongoose.model('currency');
+        const Zone = mongoose.model('zone');
         
         if(req.params.timeframe.toUpperCase()=='MONTHLY'){
             //fetch from mongodb and disconnect
-            Currency.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
+            Zone.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
                 res.send(curr[0].monthly);
                 mongoose.disconnect();
             });
@@ -24,7 +24,7 @@ module.exports= (app) =>{
 
         if(req.params.timeframe.toUpperCase()=='WEEKLY'){
             //fetch from mongodb and disconnect
-            Currency.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
+            Zone.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
                 res.send(curr[0].weekly);
                 mongoose.disconnect();
             });
@@ -32,7 +32,7 @@ module.exports= (app) =>{
 
         if(req.params.timeframe.toUpperCase()=='DAILY'){
             //fetch from mongodb and disconnect
-            Currency.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
+            Zone.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
                 res.send(curr[0].daily);
                 mongoose.disconnect();
             });
@@ -40,7 +40,7 @@ module.exports= (app) =>{
 
         if(req.params.timeframe.toUpperCase()=='H1'){
             //fetch from mongodb and disconnect
-            Currency.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
+            Zone.find({pair: req.params.currency.toUpperCase()}, function (err, curr) {
                 res.send(curr[0].h1);
                 mongoose.disconnect();
             });

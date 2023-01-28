@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const currencySchema = new Schema({
+const zoneSchema = new Schema({
     pair: String,
     monthly:{
         support:{
@@ -293,4 +293,4 @@ const currencySchema = new Schema({
     }
 });
 
-mongoose.model('currency', currencySchema);
+mongoose.model('zone', zoneSchema);

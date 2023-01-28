@@ -6,7 +6,7 @@ const { getSupp_Resi, findClosestRecentLevels } = require('../core.js');
 const pairs = supportedPairs.supportedPairs;
 const pair_keys = Object.keys(supportedPairs.supportedPairs);
 
-require('../../models/currency.js');
+require('../../models/zone.js');
 
 
 //monthly  job
@@ -32,7 +32,7 @@ async function monthlyZones(){
     try{
         const time_frame = 'monthly';
         const date_range = null;
-        const Currency = mongoose.model('currency');
+        const Zone = mongoose.model('zone');
 
 
         // finds all supported pairs
@@ -73,7 +73,7 @@ async function monthlyZones(){
                     let sr_levels = findClosestRecentLevels(supp_res.last_candle, supp_res.all_candles, supp_res.levels);
                     try{
                         // replace data in mongodb
-                        await Currency.findOneAndUpdate({pair: supp_res.pair}, {monthly: sr_levels} );
+                        await Zone.findOneAndUpdate({pair: supp_res.pair}, {monthly: sr_levels} );
                         
                     }catch(err){
                         console.log(err);
